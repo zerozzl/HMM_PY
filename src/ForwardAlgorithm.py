@@ -3,6 +3,21 @@ import numpy as np
 
 def calc_prob(N, M, pi, A, B, O):
     T = len(O);
+    alpha = np.zeros((N, T));
+    for i in range(N):
+        alpha[i, 0] = pi[i] * B[i, O[0]];
+    
+    for t in range(1, T, 1):
+        for j in range(N):
+            for i in range(N):
+                alpha[j, t] += alpha[i, t - 1] * A[i, j];
+            alpha[j, t] *= B[j, O[t]];
+    
+    prob = 0;
+    for i in range(N):
+        prob += alpha[i, T - 1];
+    
+    return alpha, prob;
 
 def unit_testing():
     '''
@@ -43,11 +58,14 @@ def unit_testing():
                 [0.05, 0.1, 0.35, 0.5]]);
     
     '''
-    观察序列: Damp, Soggy, Dry
+    观察序列: Dry, Damp, Soggy
     '''
-    O = [2, 3, 0];
+    O = [0, 2, 3];
     
-    calc_prob(N, M, pi, A, B, O);
+    alpha, prob = calc_prob(N, M, pi, A, B, O);
+    
+    print alpha;
+    print prob;
 
 unit_testing();
 
