@@ -3,21 +3,19 @@ import numpy as np
 
 def calc_prob(N, M, pi, A, B, O):
     T = len(O);
-    alpha = np.zeros((N, T));
-    for i in range(N):
-        alpha[i, 0] = pi[i] * B[i, O[0]];
+    beta = np.zeros((N, T));
+    beta[:, T - 1] = 1;
     
-    for t in range(1, T, 1):
-        for j in range(N):
-            for i in range(N):
-                alpha[j, t] += alpha[i, t - 1] * A[i, j];
-            alpha[j, t] *= B[j, O[t]];
+    for t in range(T - 2, -1, -1):
+        for i in range(N):
+            for j in range(N):
+                beta[i, t] += A[i, j] * beta[j, t + 1] * B[j, O[t + 1]];
     
     prob = 0;
     for i in range(N):
-        prob += alpha[i, T - 1];
+        prob += pi[i] * beta[i, 0] * B[i, O[0]];
     
-    return prob, alpha;
+    return prob, beta;
 
 def unit_testing():
 #     '''
@@ -73,11 +71,9 @@ def unit_testing():
     pi = [0.2, 0.4, 0.4];
     O = [0, 1, 0];
     
-    prob, alpha = calc_prob(N, M, pi, A, B, O);
+    prob, beta = calc_prob(N, M, pi, A, B, O);
     
-    print alpha;
+    print beta;
     print prob;
 
 unit_testing();
-
-    
