@@ -31,16 +31,16 @@ def unit_testing():
     M = 4;
         
     '''
-    初始状态: P(Sunny)=0.63, P(Cloudy)=0.17, P(Rainy)=0.20
+    initial state: P(Sunny)=0.63, P(Cloudy)=0.17, P(Rainy)=0.20
     '''
     pi = [0.63, 0.17, 0.2];
     
     '''
                         weather today
-    　　　　             Sunny  Cloudy  Rainy
-     weather　 Sunny  0.500  0.375   0.125
+                     Sunny  Cloudy  Rainy
+    weather   Sunny  0.500  0.375   0.125
     yesterday Cloudy 0.250  0.125   0.625
-    　　　　　　　　　 Rainy 　0.250  0.375   0.375
+              Rainy  0.250  0.375   0.375
     '''
     A = np.mat([[0.5, 0.375, 0.125],
                 [0.25, 0.125, 0.625],
@@ -58,7 +58,7 @@ def unit_testing():
                 [0.05, 0.1, 0.35, 0.5]]);
     
     '''
-    观察序列: Dry, Damp, Soggy
+    observation: Dry, Damp, Soggy
     '''
     O = [0, 2, 3];
     
