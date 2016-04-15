@@ -13,10 +13,7 @@ def calc_prob(N, M, pi, A, B, O):
                 alpha[j, t] += alpha[i, t - 1] * A[i, j];
             alpha[j, t] *= B[j, O[t]];
     
-    prob = 0;
-    for i in range(N):
-        prob += alpha[i, T - 1];
-    
+    prob = np.sum(alpha[:, T - 1]);
     return prob, alpha;
 
 def unit_testing():
