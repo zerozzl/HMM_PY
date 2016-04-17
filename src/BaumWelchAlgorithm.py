@@ -50,7 +50,7 @@ def calc_zeta(N, T, A, B, O, alpha, beta):
                 sum += zeta[t, i, j];
         zeta[t, :, :] /= sum;
     
-    return zeta;;
+    return zeta;
 
 def compute(N, M, T, O, DELTA):
     A = np.random.random((N, N));
